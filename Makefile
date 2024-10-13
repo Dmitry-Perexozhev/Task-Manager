@@ -2,4 +2,4 @@ install:
 	poetry install
 
 start:
-	gunicorn task_manager.wsgi
+	python -m gunicorn task_manager.asgi:application -k uvicorn.workers.UvicornWorker
