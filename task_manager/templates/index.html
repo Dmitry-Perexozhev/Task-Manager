@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{% endblock %}</title>
+    <title>{% block title %}Title{% endblock %}</title>
     {% load django_bootstrap5 %}
     {% bootstrap_css %}
     {% bootstrap_javascript %}
@@ -14,9 +14,9 @@
     <header class="d-flex justify-content-center py-3">
         <ul class="nav nav-pills">
             <li class="nav-item"><a href="/" class="nav-link active" aria-current="page">Mенеджер задач</a></li>
-            <li class="nav-item"><a href="/users/" class="nav-link">Пользователи</a></li>
+            <li class="nav-item"><a href="{% url 'users_list' %}" class="nav-link">Пользователи</a></li>
             <li class="nav-item"><a href="/login/" class="nav-link">Вход</a></li>
-            <li class="nav-item"><a href="/users/create/" class="nav-link">Регистрация</a></li>
+            <li class="nav-item"><a href="{% url 'add_user' %}" class="nav-link">Регистрация</a></li>
         </ul>
     </header>
 </div>

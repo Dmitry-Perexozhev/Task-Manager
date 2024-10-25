@@ -1,0 +1,32 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+
+<div class="container">
+    <h2>Пользователи</h2>
+    <table class="table table-bordered table-hover text-nowrap" data-test="urls">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Имя пользователя</th>
+            <th>Полное имя</th>
+            <th>Дата создания</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.first_name }} {{ user.last_name }}</td>
+            <td>{{ user.created_at|date:"d.m.Y H:i" }}</td>
+            <td><a href="{% url 'edit_user' user.pk %}">Редактирование</a></td>
+            <td><a href="{% url 'delete_user' user.pk %}">Удаление</a></td>
+         </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+{% endblock %}
