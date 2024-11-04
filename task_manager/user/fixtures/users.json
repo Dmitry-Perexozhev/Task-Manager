@@ -1,0 +1,22 @@
+[
+{
+    "model": "user.user",
+    "pk": 17,
+    "fields": {
+        "password": "pbkdf2_sha256$870000$PCsokg9tQgFmlg6sGH7lCr$PpgQW+wwase7d9HZA22S5OfHwT9mP2N23VoU3/gY5hE=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "IvanIvanov",
+        "first_name": "Ivan",
+        "last_name": "Ivanov",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-11-04T10:32:05.580Z",
+        "created_at": "2024-11-04T10:32:07.428Z",
+        "updated_at": "2024-11-04T10:32:07.428Z",
+        "groups": [],
+        "user_permissions": []
+    }
+}
+]
