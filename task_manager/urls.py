@@ -22,4 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.Home.as_view(), name='home'),
     path('users/', include('task_manager.user.urls')),
+    path('statuses/', include('task_manager.statuses.urls')),
 ]

@@ -5,7 +5,7 @@
 <h2>{{ title }}</h2><br>
 
 {% if is_delete_view %}
-    <p>Вы уверены, что хотите удалить <strong>{{ object.username }}</strong>?</p>
+    <p>Вы уверены, что хотите удалить <strong>{{ object.name }}</strong>?</p>
 {% endif %}
 
     {% if form.non_field_errors %}
@@ -33,7 +33,6 @@
     {% else %}
         <input class="btn btn-primary" type="submit" value="{{ button_name }}">
     {% endif %}
-
 </form>
 </div>
 {% endblock %}

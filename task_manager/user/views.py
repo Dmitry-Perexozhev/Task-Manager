@@ -47,10 +47,11 @@ class UpdateUser(LoginRequiredMixin, UserIsOwnerMixin, UpdateView):
         return super().dispatch(request, *args, **kwargs)
 
 
-class DeleteUser(LoginRequiredMixin, UserIsOwnerMixin, DeleteView):
+class DeleteUser(SuccessMessageMixin, LoginRequiredMixin, UserIsOwnerMixin, DeleteView):
     model = User
     template_name = 'user/user_form.html'
     success_url = reverse_lazy('home')
+    success_message = 'Пользователь успешно удален'
     extra_context = {
         'title': 'Удаление пользователя',
         'button_name': 'Да, удалить',
@@ -88,5 +89,6 @@ class LogoutUser(LogoutView):
 class ListUsers(ListView):
     model = User
     fields = ['id', 'username', 'first_name', 'last_name', 'created_at']
+    ordering = ['id']
     template_name = 'user/users_list.html'
     context_object_name = 'users'
