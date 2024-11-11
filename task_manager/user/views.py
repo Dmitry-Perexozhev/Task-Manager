@@ -8,6 +8,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 from django.shortcuts import redirect
+from django.db.models import ProtectedError
 
 
 class UserIsOwnerMixin:
@@ -50,7 +51,7 @@ class UpdateUser(LoginRequiredMixin, UserIsOwnerMixin, UpdateView):
 class DeleteUser(SuccessMessageMixin, LoginRequiredMixin, UserIsOwnerMixin, DeleteView):
     model = User
     template_name = 'user/user_form.html'
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('users_list')
     success_message = 'Пользователь успешно удален'
     extra_context = {
         'title': 'Удаление пользователя',
@@ -62,6 +63,14 @@ class DeleteUser(SuccessMessageMixin, LoginRequiredMixin, UserIsOwnerMixin, Dele
         if not request.user.is_authenticated:
             messages.error(request, "Вы не авторизованы! Пожалуйста, выполните вход.")
         return super().dispatch(request, *args, **kwargs)
+
+
+    def post(self, request, *args, **kwargs):
+        try:
+            return super().delete(request, *args, **kwargs)
+        except ProtectedError:
+            messages.error(request, "Невозможно удалить пользователя, потому что он используется")
+            return redirect(self.success_url)
 
 
 class LoginUser(SuccessMessageMixin, LoginView):

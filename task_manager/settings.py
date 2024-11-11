@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'task_manager',
     'task_manager.user',
     'task_manager.statuses',
+    'task_manager.tasks',
 ]
 
 MIDDLEWARE = [
@@ -122,7 +123,7 @@ MESSAGE_TAGS = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 

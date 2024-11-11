@@ -17,6 +17,7 @@
             <li class="nav-item"><a href="{% url 'users_list' %}" class="nav-link">Пользователи</a></li>
             {% if user.is_authenticated %}
             <li class="nav-item"><a href="{% url 'statuses_list' %}" class="nav-link">Статусы</a></li>
+            <li class="nav-item"><a href="{% url 'tasks_list' %}" class="nav-link">Задачи</a></li>
             <li>
                 <form method="post" action="{% url 'logout_user' %}">{% csrf_token %}
                     <button type="submit" class="nav-link">Выход</button>

@@ -1,0 +1,24 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+
+<div class="container" >
+    <h2>Просмотр задачи</h2>
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+           <strong>{{ task.name }}</strong>
+        </div>
+        <div class="card-body">
+            <p class="card-text"> {{ task.description }} </p>
+            <hr>
+            <p class="card-text"> <strong>Автор:</strong> {{ task.author }} </p>
+            <p class="card-text"> <strong>Исполнитель:</strong> {{ task.executor }} </p>
+            <p class="card-text"> <strong>Статус:</strong> {{ task.status }} </p>
+            <p class="card-text"> <strong>Дата создания:</strong> {{ task.created_at|date:"d.m.Y H:i" }} </p>
+            <a href="{% url 'update_task' task.pk %}" class="btn btn-primary">Изменить</a>
+            <a href="{% url 'delete_task' task.pk %}" class="btn btn-danger">Удалить</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

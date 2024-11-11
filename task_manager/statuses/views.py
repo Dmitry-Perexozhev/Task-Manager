@@ -5,7 +5,8 @@ from task_manager.statuses.forms import AddStatusForm
 from task_manager.statuses.models import Status
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
-
+from django.db.models import ProtectedError
+from django.shortcuts import redirect
 
 
 class AddStatus(LoginRequiredMixin, SuccessMessageMixin, CreateView):
@@ -51,6 +52,14 @@ class DeleteStatus(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
         if not request.user.is_authenticated:
             messages.error(request, "Вы не авторизованы! Пожалуйста, выполните вход.")
         return super().dispatch(request, *args, **kwargs)
+
+
+    def post(self, request, *args, **kwargs):
+        try:
+            return super().delete(request, *args, **kwargs)
+        except ProtectedError:
+            messages.error(request, "Невозможно удалить статус, потому что он используется")
+            return redirect(self.success_url)
 
 
 class ListStatuses(LoginRequiredMixin, ListView):
