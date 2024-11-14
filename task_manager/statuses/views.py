@@ -20,6 +20,12 @@ class AddStatus(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     }
 
 
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            messages.error(request, "Вы не авторизованы! Пожалуйста, выполните вход.")
+        return super().dispatch(request, *args, **kwargs)
+
+
 class UpdateStatus(LoginRequiredMixin, UpdateView):
     model = Status
     form_class = AddStatusForm
@@ -68,3 +74,9 @@ class ListStatuses(LoginRequiredMixin, ListView):
     ordering = ['id']
     template_name = 'status/status_list.html'
     context_object_name = 'statuses'
+
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            messages.error(request, "Вы не авторизованы! Пожалуйста, выполните вход.")
+        return super().dispatch(request, *args, **kwargs)

@@ -34,7 +34,7 @@ class TestUserModel(TestCase):
         response = self.client.post(reverse('edit_user', args=[user.pk]), update_data)
         self.assertEqual(response.status_code, HTTPStatus.FOUND)
         user.refresh_from_db()
-        self.assertEqual(user.username, 'Ivan2000')
+        self.assertEqual(user.username, update_data['username'])
 
 
     def test_delete_user(self):

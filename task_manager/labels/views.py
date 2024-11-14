@@ -1,3 +1,84 @@
-from django.shortcuts import render
+from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import CreateView, ListView, UpdateView, DeleteView
+from task_manager.labels.forms import AddLabelForm
+from task_manager.labels.models import Label
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib import messages
+from django.db.models import ProtectedError
+from django.shortcuts import redirect
 
-# Create your views here.
+
+class AddLabel(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    form_class = AddLabelForm
+    template_name = 'label/label_form.html'
+    success_url = reverse_lazy('labels_list')
+    success_message = 'Метка успешно создана'
+    extra_context = {
+        'title': 'Создать метку',
+        'button_name': 'Создать'
+    }
+
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            messages.error(request, "Вы не авторизованы! Пожалуйста, выполните вход.")
+        return super().dispatch(request, *args, **kwargs)
+
+
+class UpdateLabel(LoginRequiredMixin, UpdateView):
+    model = Label
+    form_class = AddLabelForm
+    template_name = 'label/label_form.html'
+    success_url = reverse_lazy('labels_list')
+    success_message = 'Метка успешно изменена'
+    extra_context = {
+        'title': 'Изменение метки',
+        'button_name': 'Изменить'
+    }
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            messages.error(request, "Вы не авторизованы! Пожалуйста, выполните вход.")
+        return super().dispatch(request, *args, **kwargs)
+
+
+class DeleteLabel(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+    model = Label
+    template_name = 'label/label_form.html'
+    success_url = reverse_lazy('labels_list')
+    success_message = 'Метка успешно удалена'
+    extra_context = {
+        'title': 'Удаление метки',
+        'button_name': 'Да, удалить',
+        'is_delete_view': True
+    }
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            messages.error(request, "Вы не авторизованы! Пожалуйста, выполните вход.")
+        return super().dispatch(request, *args, **kwargs)
+
+
+    def post(self, request, *args, **kwargs):
+        instance = self.get_object()
+        if instance.task_set.exists():
+            messages.error(request, "Невозможно удалить метку, потому что она используется")
+            return redirect(self.success_url)
+        return super().delete(request, *args, **kwargs)
+
+
+
+
+class ListLabels(LoginRequiredMixin, ListView):
+    model = Label
+    fields = ['id', 'name', 'created_at']
+    ordering = ['id']
+    template_name = 'label/label_list.html'
+    context_object_name = 'labels'
+
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            messages.error(request, "Вы не авторизованы! Пожалуйста, выполните вход.")
+        return super().dispatch(request, *args, **kwargs)

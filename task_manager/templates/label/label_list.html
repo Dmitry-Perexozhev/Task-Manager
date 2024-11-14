@@ -1,0 +1,31 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+
+<div class="container">
+    <h2>Метки</h2>
+    <a href="{% url 'add_label' %}" class="btn btn-primary mb-4">Создать метку</a>
+    <table class="table table-bordered table-hover text-nowrap" data-test="urls">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Имя</th>
+            <th>Дата создания</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for label in labels %}
+        <tr>
+            <td>{{ label.id }}</td>
+            <td>{{ label.name }}</td>
+            <td>{{ label.created_at|date:"d.m.Y H:i" }}</td>
+            <td><a href="{% url 'update_label' label.pk %}">Изменить</a></td>
+            <td><a href="{% url 'delete_label' label.pk %}">Удалить</a></td>
+         </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+{% endblock %}

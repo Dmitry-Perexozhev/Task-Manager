@@ -30,7 +30,7 @@ class TestStatusModel(TestCase):
         response = self.client.post(reverse('update_status', args=[status.pk]), update_data)
         self.assertEqual(response.status_code, HTTPStatus.FOUND)
         status.refresh_from_db()
-        self.assertEqual(status.name, 'завершен')
+        self.assertEqual(status.name, update_data['name'])
 
 
     def test_delete_status(self):

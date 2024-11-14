@@ -36,7 +36,7 @@ class TestTaskModel(TestCase):
         response = self.client.post(reverse('update_task', args=[task.pk]), update_data)
         self.assertEqual(response.status_code, HTTPStatus.FOUND)
         task.refresh_from_db()
-        self.assertEqual(task.name, 'Измененная задача')
+        self.assertEqual(task.name, update_data['name'])
 
 
     def test_delete_task(self):
@@ -70,3 +70,11 @@ class TestTaskModel(TestCase):
         response = self.client.get(reverse('task_view', args=[task.pk]))
         self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertTemplateUsed(response, 'task/task_view.html')
+
+
+    def test_read_tasks_list(self):
+        user = User.objects.get(username='IvanIvanov')
+        self.client.login(username=user.username, password='1234')
+        response = self.client.get(reverse('tasks_list'))
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertTemplateUsed(response, 'task/task_list.html')
