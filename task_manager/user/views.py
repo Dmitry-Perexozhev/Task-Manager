@@ -11,6 +11,13 @@ from django.shortcuts import redirect
 from django.db.models import ProtectedError
 
 
+class UserNotAuthenticatedMixin(LoginRequiredMixin):
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            messages.error(request, "Вы не авторизованы! Пожалуйста, выполните вход.")
+        return super().dispatch(request, *args, **kwargs)
+
+
 class UserIsOwnerMixin:
     def dispatch(self, request, *args, **kwargs):
         obj = self.get_object()
@@ -31,7 +38,7 @@ class AddUser(SuccessMessageMixin, CreateView):
     }
 
 
-class UpdateUser(LoginRequiredMixin, UserIsOwnerMixin, UpdateView):
+class UpdateUser(UserNotAuthenticatedMixin, UserIsOwnerMixin, UpdateView):
     model = User
     form_class = RegisterUserForm
     template_name = 'user/user_form.html'
@@ -42,13 +49,8 @@ class UpdateUser(LoginRequiredMixin, UserIsOwnerMixin, UpdateView):
         'button_name': 'Изменить'
     }
 
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            messages.error(request, "Вы не авторизованы! Пожалуйста, выполните вход.")
-        return super().dispatch(request, *args, **kwargs)
 
-
-class DeleteUser(SuccessMessageMixin, LoginRequiredMixin, UserIsOwnerMixin, DeleteView):
+class DeleteUser(SuccessMessageMixin, UserNotAuthenticatedMixin, UserIsOwnerMixin, DeleteView):
     model = User
     template_name = 'user/user_form.html'
     success_url = reverse_lazy('users_list')
@@ -58,11 +60,6 @@ class DeleteUser(SuccessMessageMixin, LoginRequiredMixin, UserIsOwnerMixin, Dele
         'button_name': 'Да, удалить',
         'is_delete_view': True
     }
-
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            messages.error(request, "Вы не авторизованы! Пожалуйста, выполните вход.")
-        return super().dispatch(request, *args, **kwargs)
 
 
     def post(self, request, *args, **kwargs):

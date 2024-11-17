@@ -1,5 +1,4 @@
 from django import forms
-
 from task_manager.statuses.models import Status
 from task_manager.tasks.models import Task
 from task_manager.user.models import User
@@ -39,8 +38,3 @@ class AddTaskForm(forms.ModelForm):
         widget=forms.SelectMultiple(attrs={'class': 'form-control'}),
         required=False
     )
-
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['executor'].label_from_instance = lambda obj: f"{obj.first_name} {obj.last_name}"

@@ -6,6 +6,15 @@ from task_manager.tasks.models import Task
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 from django.shortcuts import redirect
+from django_filters.views import FilterView
+from task_manager.tasks.filters import TaskFilter
+
+
+class UserNotAuthenticatedMixin(LoginRequiredMixin):
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            messages.error(request, "Вы не авторизованы! Пожалуйста, выполните вход.")
+        return super().dispatch(request, *args, **kwargs)
 
 
 class UserIsOwnerMixin:
@@ -17,21 +26,24 @@ class UserIsOwnerMixin:
         return super().dispatch(request, *args, **kwargs)
 
 
-class ListTasks(LoginRequiredMixin, ListView):
+class ListTasks(UserNotAuthenticatedMixin, FilterView):
     model = Task
     fields = '__all__'
     ordering = ['id']
     template_name = 'task/task_list.html'
     context_object_name = 'tasks'
+    filterset_class = TaskFilter
 
 
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            messages.error(request, "Вы не авторизованы! Пожалуйста, выполните вход.")
-        return super().dispatch(request, *args, **kwargs)
+    def get_queryset(self):
+        queryset = Task.objects.all()
+        only_my_tasks = self.request.GET.get('current_user', False)
+        if only_my_tasks:
+            queryset = queryset.filter(author=self.request.user)
+        return queryset
 
 
-class AddTask(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class AddTask(UserNotAuthenticatedMixin, SuccessMessageMixin, CreateView):
     form_class = AddTaskForm
     template_name = 'task/task_form.html'
     success_url = reverse_lazy('tasks_list')
@@ -47,13 +59,7 @@ class AddTask(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         return super().form_valid(form)
 
 
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            messages.error(request, "Вы не авторизованы! Пожалуйста, выполните вход.")
-        return super().dispatch(request, *args, **kwargs)
-
-
-class UpdateTask(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class UpdateTask(UserNotAuthenticatedMixin, SuccessMessageMixin, UpdateView):
     model = Task
     form_class = AddTaskForm
     template_name = 'task/task_form.html'
@@ -65,13 +71,8 @@ class UpdateTask(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     }
 
 
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            messages.error(request, "Вы не авторизованы! Пожалуйста, выполните вход.")
-        return super().dispatch(request, *args, **kwargs)
 
-
-class DeleteTask(LoginRequiredMixin, UserIsOwnerMixin, SuccessMessageMixin, DeleteView):
+class DeleteTask(UserNotAuthenticatedMixin, UserIsOwnerMixin, SuccessMessageMixin, DeleteView):
     model = Task
     template_name = 'task/task_form.html'
     success_url = reverse_lazy('tasks_list')
@@ -83,18 +84,7 @@ class DeleteTask(LoginRequiredMixin, UserIsOwnerMixin, SuccessMessageMixin, Dele
     }
 
 
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            messages.error(request, "Вы не авторизованы! Пожалуйста, выполните вход.")
-        return super().dispatch(request, *args, **kwargs)
-
-
-class TaskView(LoginRequiredMixin, DetailView):
+class TaskView(UserNotAuthenticatedMixin, DetailView):
     model = Task
     template_name = 'task/task_view.html'
     context_object_name = 'task'
-
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            messages.error(request, "Вы не авторизованы! Пожалуйста, выполните вход.")
-        return super().dispatch(request, *args, **kwargs)

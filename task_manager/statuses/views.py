@@ -9,7 +9,14 @@ from django.db.models import ProtectedError
 from django.shortcuts import redirect
 
 
-class AddStatus(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class UserNotAuthenticatedMixin(LoginRequiredMixin):
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            messages.error(request, "Вы не авторизованы! Пожалуйста, выполните вход.")
+        return super().dispatch(request, *args, **kwargs)
+
+
+class AddStatus(UserNotAuthenticatedMixin, SuccessMessageMixin, CreateView):
     form_class = AddStatusForm
     template_name = 'status/status_form.html'
     success_url = reverse_lazy('statuses_list')
@@ -20,13 +27,7 @@ class AddStatus(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     }
 
 
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            messages.error(request, "Вы не авторизованы! Пожалуйста, выполните вход.")
-        return super().dispatch(request, *args, **kwargs)
-
-
-class UpdateStatus(LoginRequiredMixin, UpdateView):
+class UpdateStatus(UserNotAuthenticatedMixin, UpdateView):
     model = Status
     form_class = AddStatusForm
     template_name = 'status/status_form.html'
@@ -37,13 +38,8 @@ class UpdateStatus(LoginRequiredMixin, UpdateView):
         'button_name': 'Изменить'
     }
 
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            messages.error(request, "Вы не авторизованы! Пожалуйста, выполните вход.")
-        return super().dispatch(request, *args, **kwargs)
 
-
-class DeleteStatus(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+class DeleteStatus(UserNotAuthenticatedMixin, SuccessMessageMixin, DeleteView):
     model = Status
     template_name = 'status/status_form.html'
     success_url = reverse_lazy('statuses_list')
@@ -54,11 +50,6 @@ class DeleteStatus(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
         'is_delete_view': True
     }
 
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            messages.error(request, "Вы не авторизованы! Пожалуйста, выполните вход.")
-        return super().dispatch(request, *args, **kwargs)
-
 
     def post(self, request, *args, **kwargs):
         try:
@@ -68,15 +59,9 @@ class DeleteStatus(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
             return redirect(self.success_url)
 
 
-class ListStatuses(LoginRequiredMixin, ListView):
+class ListStatuses(UserNotAuthenticatedMixin, ListView):
     model = Status
     fields = ['id', 'name', 'created_at']
     ordering = ['id']
     template_name = 'status/status_list.html'
     context_object_name = 'statuses'
-
-
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            messages.error(request, "Вы не авторизованы! Пожалуйста, выполните вход.")
-        return super().dispatch(request, *args, **kwargs)

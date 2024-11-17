@@ -20,11 +20,19 @@
     {% for field in form %}
     <p>
         <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
-        <div class="mb-2">{{ field }}</div>
+        <div class="mb-2">
+            {{ field }}
+        </div>
+        {% if field.errors %}
+        <div class="form-text text-danger">
+            {% for error in field.errors %}
+                {{ error }}
+            {% endfor %}
+        </div>
+        {% endif %}
         {% if field.help_text %}
         <div class="form-text">{{ field.help_text }}</div>
         {% endif %}
-        <div class="form-error">{{ field.errors }}</div>
     </p>
     {% endfor %}
 

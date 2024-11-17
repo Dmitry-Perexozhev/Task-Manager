@@ -9,7 +9,14 @@ from django.db.models import ProtectedError
 from django.shortcuts import redirect
 
 
-class AddLabel(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class UserNotAuthenticatedMixin(LoginRequiredMixin):
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            messages.error(request, "Вы не авторизованы! Пожалуйста, выполните вход.")
+        return super().dispatch(request, *args, **kwargs)
+
+
+class AddLabel(UserNotAuthenticatedMixin, SuccessMessageMixin, CreateView):
     form_class = AddLabelForm
     template_name = 'label/label_form.html'
     success_url = reverse_lazy('labels_list')
@@ -20,13 +27,7 @@ class AddLabel(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     }
 
 
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            messages.error(request, "Вы не авторизованы! Пожалуйста, выполните вход.")
-        return super().dispatch(request, *args, **kwargs)
-
-
-class UpdateLabel(LoginRequiredMixin, UpdateView):
+class UpdateLabel(UserNotAuthenticatedMixin, UpdateView):
     model = Label
     form_class = AddLabelForm
     template_name = 'label/label_form.html'
@@ -37,13 +38,8 @@ class UpdateLabel(LoginRequiredMixin, UpdateView):
         'button_name': 'Изменить'
     }
 
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            messages.error(request, "Вы не авторизованы! Пожалуйста, выполните вход.")
-        return super().dispatch(request, *args, **kwargs)
 
-
-class DeleteLabel(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+class DeleteLabel(UserNotAuthenticatedMixin, SuccessMessageMixin, DeleteView):
     model = Label
     template_name = 'label/label_form.html'
     success_url = reverse_lazy('labels_list')
@@ -54,11 +50,6 @@ class DeleteLabel(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
         'is_delete_view': True
     }
 
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            messages.error(request, "Вы не авторизованы! Пожалуйста, выполните вход.")
-        return super().dispatch(request, *args, **kwargs)
-
 
     def post(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -68,17 +59,9 @@ class DeleteLabel(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
         return super().delete(request, *args, **kwargs)
 
 
-
-
-class ListLabels(LoginRequiredMixin, ListView):
+class ListLabels(UserNotAuthenticatedMixin, ListView):
     model = Label
     fields = ['id', 'name', 'created_at']
     ordering = ['id']
     template_name = 'label/label_list.html'
     context_object_name = 'labels'
-
-
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            messages.error(request, "Вы не авторизованы! Пожалуйста, выполните вход.")
-        return super().dispatch(request, *args, **kwargs)

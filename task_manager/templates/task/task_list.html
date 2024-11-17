@@ -6,7 +6,21 @@
 <div class="container">
     <h2>Задачи</h2>
     <a href="{% url 'add_task' %}" class="btn btn-primary mb-4">Создать задачу</a>
-    <table class="table table-bordered table-hover text-nowrap" data-test="urls">
+    <div class="card mb-4">
+
+        <div class="card-body">
+            <form method="get" action="">
+                {{ filter.form.as_p }}
+                <div class="mb-4">
+                    <input type="checkbox" name="current_user" value="1" {% if request.GET.current_user %}checked{% endif %}>
+                    Только свои задачи
+                </div>
+                <input class="btn btn-primary" type="submit" value="Показать">
+            </form>
+        </div>
+    </div>
+
+    <table class="table table-hover text-nowrap table-striped">
         <thead>
         <tr>
             <th>ID</th>
@@ -15,6 +29,7 @@
             <th>Автор</th>
             <th>Исполнитель</th>
             <th>Дата создания</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -28,8 +43,10 @@
             <td>{{ task.author.first_name }} {{ task.author.last_name }}</td>
             <td>{{ task.executor.first_name }} {{ task.executor.last_name }}</td>
             <td>{{ task.created_at|date:"d.m.Y H:i" }}</td>
-            <td><a href="{% url 'update_task' task.pk %}">Изменить</a></td>
-            <td><a href="{% url 'delete_task' task.pk %}">Удалить</a></td>
+            <td>
+                <a href="{% url 'update_task' task.pk %}">Изменить</a><br>
+                <a href="{% url 'delete_task' task.pk %}">Удалить</a>
+            </td>
         </tr>
         {% endfor %}
 

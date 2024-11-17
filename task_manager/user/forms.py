@@ -1,4 +1,3 @@
-from email.policy import default
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.forms import ModelForm
 from .models import User
@@ -19,6 +18,7 @@ class RegisterUserForm(UserCreationForm):
         label='Имя пользователя',
         widget=forms.TextInput(attrs={'placeholder': 'Имя пользователя', 'class': 'form-control'}),
         help_text = 'Обязательное поле. Не более 150 символов. Только буквы, цифры и символы @/./+/-/_.'
+
     )
     password1 = forms.CharField(
         label='Пароль',
