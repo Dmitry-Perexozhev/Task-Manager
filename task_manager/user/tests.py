@@ -7,7 +7,6 @@ from task_manager.user.models import User
 class TestUserModel(TestCase):
     fixtures = ['users.json']
 
-
     def test_create_user(self):
         user_data = {
             'first_name': 'Dmitriy',
@@ -18,8 +17,9 @@ class TestUserModel(TestCase):
         }
         response = self.client.post(reverse('add_user'), user_data)
         self.assertEqual(response.status_code, HTTPStatus.FOUND)
-        self.assertTrue(User.objects.filter(username=user_data['username']).exists())
-
+        self.assertTrue(
+            User.objects.filter(username=user_data['username']).exists()
+        )
 
     def test_update_user(self):
         user = User.objects.get(username='IvanIvanov')
@@ -31,11 +31,12 @@ class TestUserModel(TestCase):
             'password1': '12345678Aa',
             'password2': '12345678Aa'
         }
-        response = self.client.post(reverse('edit_user', args=[user.pk]), update_data)
+        response = self.client.post(
+            reverse('edit_user', args=[user.pk]), update_data
+        )
         self.assertEqual(response.status_code, HTTPStatus.FOUND)
         user.refresh_from_db()
         self.assertEqual(user.username, update_data['username'])
-
 
     def test_delete_user(self):
         user = User.objects.get(username='IvanIvanov')

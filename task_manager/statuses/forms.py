@@ -7,7 +7,12 @@ class AddStatusForm(forms.ModelForm):
         model = Status
         fields = ['name']
         widgets = {
-            'name': forms.TextInput(attrs={'placeholder': 'Имя', 'class': 'form-control'})
+            'name': forms.TextInput(
+                attrs={
+                    'placeholder': 'Имя',
+                    'class': 'form-control'
+                }
+            )
         }
         labels = {
             'name': 'Имя'

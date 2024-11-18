@@ -5,14 +5,15 @@ from task_manager.labels.forms import AddLabelForm
 from task_manager.labels.models import Label
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
-from django.db.models import ProtectedError
 from django.shortcuts import redirect
 
 
 class UserNotAuthenticatedMixin(LoginRequiredMixin):
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
-            messages.error(request, "Вы не авторизованы! Пожалуйста, выполните вход.")
+            messages.error(
+                request, "Вы не авторизованы! Пожалуйста, выполните вход."
+            )
         return super().dispatch(request, *args, **kwargs)
 
 
@@ -50,11 +51,12 @@ class DeleteLabel(UserNotAuthenticatedMixin, SuccessMessageMixin, DeleteView):
         'is_delete_view': True
     }
 
-
     def post(self, request, *args, **kwargs):
         instance = self.get_object()
         if instance.task_set.exists():
-            messages.error(request, "Невозможно удалить метку, потому что она используется")
+            messages.error(
+                request, "Невозможно удалить метку, потому что она используется"
+            )
             return redirect(self.success_url)
         return super().delete(request, *args, **kwargs)
 

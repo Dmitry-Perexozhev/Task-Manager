@@ -7,7 +7,12 @@ class AddLabelForm(forms.ModelForm):
         model = Label
         fields = ['name']
         widgets = {
-            'name': forms.TextInput(attrs={'placeholder': 'Имя', 'class': 'form-control'})
+            'name': forms.TextInput(
+                attrs={
+                    'placeholder': 'Имя',
+                    'class': 'form-control'
+                }
+            )
         }
         labels = {
             'name': 'Имя'

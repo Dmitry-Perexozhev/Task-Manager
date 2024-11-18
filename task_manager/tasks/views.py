@@ -1,6 +1,5 @@
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import CreateView, ListView, UpdateView, DeleteView, DetailView
 from task_manager.tasks.forms import AddTaskForm
 from task_manager.tasks.models import Task
 from django.contrib.messages.views import SuccessMessageMixin
@@ -8,12 +7,20 @@ from django.contrib import messages
 from django.shortcuts import redirect
 from django_filters.views import FilterView
 from task_manager.tasks.filters import TaskFilter
+from django.views.generic import (
+    CreateView,
+    UpdateView,
+    DeleteView,
+    DetailView
+)
 
 
 class UserNotAuthenticatedMixin(LoginRequiredMixin):
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
-            messages.error(request, "Вы не авторизованы! Пожалуйста, выполните вход.")
+            messages.error(
+                request, "Вы не авторизованы! Пожалуйста, выполните вход."
+            )
         return super().dispatch(request, *args, **kwargs)
 
 
@@ -21,8 +28,12 @@ class UserIsOwnerMixin:
     def dispatch(self, request, *args, **kwargs):
         obj = self.get_object()
         if obj.author != request.user:
-            messages.error(request, "Задачу может удалить только ее автор")
-            return redirect(request.META.get('HTTP_REFERER', reverse_lazy('tasks_list')))
+            messages.error(
+                request, "Задачу может удалить только ее автор"
+            )
+            return redirect(
+                request.META.get('HTTP_REFERER', reverse_lazy('tasks_list'))
+            )
         return super().dispatch(request, *args, **kwargs)
 
 
@@ -33,7 +44,6 @@ class ListTasks(UserNotAuthenticatedMixin, FilterView):
     template_name = 'task/task_list.html'
     context_object_name = 'tasks'
     filterset_class = TaskFilter
-
 
     def get_queryset(self):
         queryset = Task.objects.all()
@@ -53,7 +63,6 @@ class AddTask(UserNotAuthenticatedMixin, SuccessMessageMixin, CreateView):
         'button_name': 'Создать'
     }
 
-
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
@@ -71,8 +80,8 @@ class UpdateTask(UserNotAuthenticatedMixin, SuccessMessageMixin, UpdateView):
     }
 
 
-
-class DeleteTask(UserNotAuthenticatedMixin, UserIsOwnerMixin, SuccessMessageMixin, DeleteView):
+class DeleteTask(UserNotAuthenticatedMixin, UserIsOwnerMixin,
+                 SuccessMessageMixin, DeleteView):
     model = Task
     template_name = 'task/task_form.html'
     success_url = reverse_lazy('tasks_list')

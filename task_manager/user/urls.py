@@ -1,6 +1,6 @@
 from django.urls import path
 from task_manager.user import views
-from django.contrib.auth.views import LogoutView
+
 
 urlpatterns = [
     path('', views.ListUsers.as_view(), name='users_list'),

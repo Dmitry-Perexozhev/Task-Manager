@@ -10,8 +10,20 @@ class AddTaskForm(forms.ModelForm):
         model = Task
         fields = ['name', 'description', 'status', 'executor', 'labels']
         widgets = {
-            'name': forms.TextInput(attrs={'placeholder': 'Имя', 'class': 'form-control'}),
-            'description': forms.Textarea(attrs={'placeholder': 'Описание', 'cols': 40, 'rows': 10, 'class': 'form-control'})
+            'name': forms.TextInput(
+                attrs={
+                    'placeholder': 'Имя',
+                    'class': 'form-control'
+                }
+            ),
+            'description': forms.Textarea(
+                attrs={
+                    'placeholder': 'Описание',
+                    'cols': 40,
+                    'rows': 10,
+                    'class': 'form-control'
+                }
+            )
         }
         labels = {
             'name': 'Имя',

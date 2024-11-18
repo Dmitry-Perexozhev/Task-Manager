@@ -12,7 +12,9 @@ from django.shortcuts import redirect
 class UserNotAuthenticatedMixin(LoginRequiredMixin):
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
-            messages.error(request, "Вы не авторизованы! Пожалуйста, выполните вход.")
+            messages.error(
+                request, "Вы не авторизованы! Пожалуйста, выполните вход."
+            )
         return super().dispatch(request, *args, **kwargs)
 
 
@@ -50,12 +52,13 @@ class DeleteStatus(UserNotAuthenticatedMixin, SuccessMessageMixin, DeleteView):
         'is_delete_view': True
     }
 
-
     def post(self, request, *args, **kwargs):
         try:
             return super().delete(request, *args, **kwargs)
         except ProtectedError:
-            messages.error(request, "Невозможно удалить статус, потому что он используется")
+            messages.error(
+                request, "Невозможно удалить статус, потому что он используется"
+            )
             return redirect(self.success_url)
 
 
