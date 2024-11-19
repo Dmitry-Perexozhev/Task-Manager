@@ -54,7 +54,7 @@ class DeleteStatus(UserNotAuthenticatedMixin, SuccessMessageMixin, DeleteView):
 
     def post(self, request, *args, **kwargs):
         try:
-            return super().delete(request, *args, **kwargs)
+            return super().post(request, *args, **kwargs)
         except ProtectedError:
             messages.error(
                 request, "Невозможно удалить статус, потому что он используется"
