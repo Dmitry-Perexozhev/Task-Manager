@@ -29,7 +29,7 @@ class AddStatus(UserNotAuthenticatedMixin, SuccessMessageMixin, CreateView):
     }
 
 
-class UpdateStatus(UserNotAuthenticatedMixin, UpdateView):
+class UpdateStatus(UserNotAuthenticatedMixin, SuccessMessageMixin, UpdateView):
     model = Status
     form_class = AddStatusForm
     template_name = 'status/status_form.html'
