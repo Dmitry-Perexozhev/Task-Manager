@@ -32,7 +32,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 # ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(', ')
-ALLOWED_HOSTS = ['webserver', '127.0.0.1']
+ALLOWED_HOSTS = ['webserver', ]
 
 
 # Application definition
