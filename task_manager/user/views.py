@@ -52,7 +52,8 @@ class AddUser(SuccessMessageMixin, CreateView):
         return context
 
 
-class UpdateUser(UserNotAuthenticatedMixin, UserIsOwnerMixin, UpdateView):
+class UpdateUser(UserNotAuthenticatedMixin, UserIsOwnerMixin,
+                 SuccessMessageMixin, UpdateView):
     model = User
     form_class = RegisterUserForm
     template_name = 'user/user_form.html'
