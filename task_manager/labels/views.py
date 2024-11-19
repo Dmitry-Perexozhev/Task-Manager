@@ -28,7 +28,7 @@ class AddLabel(UserNotAuthenticatedMixin, SuccessMessageMixin, CreateView):
     }
 
 
-class UpdateLabel(UserNotAuthenticatedMixin, UpdateView):
+class UpdateLabel(UserNotAuthenticatedMixin, SuccessMessageMixin, UpdateView):
     model = Label
     form_class = AddLabelForm
     template_name = 'label/label_form.html'
