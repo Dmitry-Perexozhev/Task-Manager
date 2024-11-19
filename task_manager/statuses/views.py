@@ -34,7 +34,7 @@ class UpdateStatus(UserNotAuthenticatedMixin, UpdateView):
     form_class = AddStatusForm
     template_name = 'status/status_form.html'
     success_url = reverse_lazy('statuses_list')
-    success_message = 'Пользователь успешно изменен'
+    success_message = 'Статус успешно изменен'
     extra_context = {
         'title': 'Изменение статуса',
         'button_name': 'Изменить'
