@@ -94,7 +94,7 @@ class LoginUser(SuccessMessageMixin, LoginView):
     success_message = 'Вы залогинены'
     extra_context = {
         'title': 'Вход',
-        'button_name': 'Войти'
+        'button_name': 'Вход'
     }
 
     def form_invalid(self, form):
