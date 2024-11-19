@@ -58,7 +58,7 @@ class DeleteLabel(UserNotAuthenticatedMixin, SuccessMessageMixin, DeleteView):
                 request, "Невозможно удалить метку, потому что она используется"
             )
             return redirect(self.success_url)
-        return super().delete(request, *args, **kwargs)
+        return super().post(request, *args, **kwargs)
 
 
 class ListLabels(UserNotAuthenticatedMixin, ListView):
