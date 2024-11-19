@@ -37,7 +37,7 @@
         <tr>
             <td>{{ task.id }}</td>
             <td><a href="{% url 'task_view' task.pk %}">
-                {{ task.name|slice:":10" }}{% if task.name|length > 10 %}...{% endif %}
+                {{ task.name }}
             </a></td>
             <td>{{ task.status }}</td>
             <td>{{ task.author.first_name }} {{ task.author.last_name }}</td>
