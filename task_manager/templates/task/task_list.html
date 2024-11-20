@@ -10,7 +10,12 @@
 
         <div class="card-body">
             <form method="get" action="">
-                {{ filter.form.as_p }}
+                   {% for field in filter.form %}
+                    <div class="mb-2">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    </div>
+                    {% endfor %}
                 <div class="mb-4">
                     <input type="checkbox" name="current_user" value="1" {% if request.GET.current_user %}checked{% endif %} id="id_self_tasks">
                     <label for="id_self_tasks">Только свои задачи</label>
