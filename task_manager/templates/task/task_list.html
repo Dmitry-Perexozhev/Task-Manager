@@ -12,8 +12,8 @@
             <form method="get" action="">
                 {{ filter.form.as_p }}
                 <div class="mb-4">
-                    <input type="checkbox" name="current_user" value="1" {% if request.GET.current_user %}checked{% endif %}>
-                    Только свои задачи
+                    <input type="checkbox" name="current_user" value="1" {% if request.GET.current_user %}checked{% endif %} id="id_self_tasks">
+                    <label for="id_self_tasks">Только свои задачи</label>
                 </div>
                 <input class="btn btn-primary" type="submit" value="Показать">
             </form>
