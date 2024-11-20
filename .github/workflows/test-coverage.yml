@@ -1,0 +1,25 @@
+name: test-coverage
+
+on:
+  - push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11.x'
+      - name: Install dependencies
+        run: |
+          pip install poetry
+          poetry install
+      - name: Test code coverage
+        uses: paambaati/codeclimate-action@v5.0.0
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        with:
+          coverageCommand: make test-coverage
+          debug: true

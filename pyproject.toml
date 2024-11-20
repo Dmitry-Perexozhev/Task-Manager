@@ -20,6 +20,7 @@ django-bootstrap5 = "^24.3"
 django-filter = "^24.3"
 rollbar = "^0.16.3"
 flake8 = "^7.1.1"
+coverage = "^7.6.7"
 
 
 [build-system]
