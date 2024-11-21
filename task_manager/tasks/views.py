@@ -2,15 +2,30 @@ from django.urls import reverse_lazy
 from task_manager.tasks.forms import AddTaskForm
 from task_manager.tasks.models import Task
 from django.contrib.messages.views import SuccessMessageMixin
-from task_manager.mixins import UserNotAuthenticatedMixin, UserIsOwnerMixin
+from task_manager.mixins import UserNotAuthenticatedMixin
 from django_filters.views import FilterView
 from task_manager.tasks.filters import TaskFilter
+from django.contrib import messages
+from django.shortcuts import redirect
 from django.views.generic import (
     CreateView,
     UpdateView,
     DeleteView,
     DetailView
 )
+
+
+class UserIsOwnerMixin:
+    def dispatch(self, request, *args, **kwargs):
+        obj = self.get_object()
+        if obj.author != request.user:
+            messages.error(
+                request, "Задачу может удалить только ее автор"
+            )
+            return redirect(
+                request.META.get('HTTP_REFERER', reverse_lazy('tasks_list'))
+            )
+        return super().dispatch(request, *args, **kwargs)
 
 
 class ListTasks(UserNotAuthenticatedMixin, FilterView):
