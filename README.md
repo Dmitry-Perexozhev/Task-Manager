@@ -1,9 +1,10 @@
-
 <div align="center">
 <img src="https://github.com/Dmitry-Perexozhev/python-project-52/blob/main/img/task-manager-banner.svg" alt="logo" width="270" height="auto" />
 <h1>Task Manager</h1>
 </div>
+
 [![Actions Status](https://github.com/Dmitry-Perexozhev/python-project-52/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Dmitry-Perexozhev/python-project-52/actions)
+[![Maintainability](https://api.codeclimate.com/v1/badges/b4975e07f182c91a4872/maintainability)](https://codeclimate.com/github/Dmitry-Perexozhev/python-project-52/maintainability)
 
 Task Manager is a Dajngo-based web application that enables users to build work processes more efficiently
 
