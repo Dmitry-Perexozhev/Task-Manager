@@ -14,11 +14,10 @@ class UserNotAuthenticatedMixin(LoginRequiredMixin):
 
 
 class UserIsOwnerMixin:
+    message_error = "У вас нет прав для изменения другого пользователя."
     def dispatch(self, request, *args, **kwargs):
         obj = self.get_object()
         if obj != request.user:
-            messages.error(
-                request, "У вас нет прав для изменения другого пользователя."
-            )
+            messages.error(request, self.message_error)
             return redirect(reverse_lazy('users_list'))
         return super().dispatch(request, *args, **kwargs)
