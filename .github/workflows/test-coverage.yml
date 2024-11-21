@@ -25,7 +25,7 @@ jobs:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
         with:
           coverageCommand:
-            coverage erase
-            coverage run manage.py test
-            coverage xml
+            poetry run coverage erase
+            poetry run coverage run manage.py test
+            poetry run coverage xml
           debug: true
