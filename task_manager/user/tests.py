@@ -32,7 +32,7 @@ class TestUserModel(TestCase):
             'password2': '12345678Aa'
         }
         response = self.client.post(
-            reverse('edit_user', args=[user.pk]), update_data
+            reverse('update_user', args=[user.pk]), update_data
         )
         self.assertEqual(response.status_code, HTTPStatus.FOUND)
         user.refresh_from_db()
