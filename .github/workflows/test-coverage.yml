@@ -25,7 +25,7 @@ jobs:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
         with:
           coverageCommand:
-            poetry run python -m coverage erase
-            poetry run python -m coverage run manage.py test
-            poetry run python -m  coverage xml
+            poetry run coverage run manage.py test
+            poetry run coverage report -m --include=task_manager/* --omit=task_manager/settings.py
+            poetry run coverage xml --include=task_manager/* --omit=task_manager/settings.py
           debug: true
