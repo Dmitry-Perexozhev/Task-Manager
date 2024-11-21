@@ -1,10 +1,9 @@
-### Hexlet tests and linter status:
-[![Actions Status](https://github.com/Dmitry-Perexozhev/python-project-52/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Dmitry-Perexozhev/python-project-52/actions)
+
 <div align="center">
 <img src="https://github.com/Dmitry-Perexozhev/python-project-52/blob/main/img/task-manager-banner.svg" alt="logo" width="270" height="auto" />
 <h1>Task Manager</h1>
 </div>
-
+[![Actions Status](https://github.com/Dmitry-Perexozhev/python-project-52/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Dmitry-Perexozhev/python-project-52/actions)
 
 Task Manager is a Dajngo-based web application that enables users to build work processes more efficiently
 
