@@ -1,5 +1,5 @@
 from django.urls import reverse_lazy
-from django.contrib.auth.mixins import LoginRequiredMixin
+from task_manager.mixins import UserNotAuthenticatedMixin
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from task_manager.statuses.forms import AddStatusForm
 from task_manager.statuses.models import Status
@@ -7,15 +7,6 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 from django.db.models import ProtectedError
 from django.shortcuts import redirect
-
-
-class UserNotAuthenticatedMixin(LoginRequiredMixin):
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            messages.error(
-                request, "Вы не авторизованы! Пожалуйста, выполните вход."
-            )
-        return super().dispatch(request, *args, **kwargs)
 
 
 class AddStatus(UserNotAuthenticatedMixin, SuccessMessageMixin, CreateView):

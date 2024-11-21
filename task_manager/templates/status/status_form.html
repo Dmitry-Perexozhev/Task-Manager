@@ -1,13 +1,10 @@
 {% extends 'index.html' %}
-
 {% block content %}
 <div class="container"><br>
 <h2>{{ title }}</h2><br>
-
 {% if is_delete_view %}
     <p>Вы уверены, что хотите удалить <strong>{{ object.name }}</strong>?</p>
 {% endif %}
-
     {% if form.non_field_errors %}
     <div class="alert alert-danger">
         {% for error in form.non_field_errors %}
@@ -27,7 +24,6 @@
         <div class="form-error">{{ field.errors }}</div>
     </p>
     {% endfor %}
-
     {% if is_delete_view %}
         <input class="btn btn-danger" type="submit" value="{{ button_name }}">
     {% else %}

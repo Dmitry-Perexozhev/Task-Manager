@@ -1,8 +1,5 @@
 {% extends 'index.html' %}
-
 {% block content %}
-
-
 <div class="container">
     <h2>Метки</h2>
     <a href="{% url 'add_label' %}" class="btn btn-primary mb-4">Создать метку</a>
@@ -27,7 +24,6 @@
             </td>
          </tr>
         {% endfor %}
-
         </tbody>
     </table>
 </div>

@@ -1,5 +1,5 @@
 from django.urls import reverse_lazy
-from django.contrib.auth.mixins import LoginRequiredMixin
+from task_manager.mixins import UserNotAuthenticatedMixin, UserIsOwnerMixin
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from task_manager.user.forms import RegisterUserForm, LoginUserForm
 from task_manager.user.models import User
@@ -8,26 +8,6 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.db.models import ProtectedError
-
-
-class UserNotAuthenticatedMixin(LoginRequiredMixin):
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            messages.error(
-                request, "Вы не авторизованы! Пожалуйста, выполните вход."
-            )
-        return super().dispatch(request, *args, **kwargs)
-
-
-class UserIsOwnerMixin:
-    def dispatch(self, request, *args, **kwargs):
-        obj = self.get_object()
-        if obj != request.user:
-            messages.error(
-                request, "У вас нет прав для изменения другого пользователя."
-            )
-            return redirect(reverse_lazy('users_list'))
-        return super().dispatch(request, *args, **kwargs)
 
 
 class AddUser(SuccessMessageMixin, CreateView):

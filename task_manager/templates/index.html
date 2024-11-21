@@ -9,7 +9,6 @@
     {% bootstrap_javascript %}
 </head>
 <body>
-
 <div class="container">
     <header class="d-flex justify-content-center py-3">
         <ul class="nav nav-pills">
@@ -32,8 +31,6 @@
         </ul>
     </header>
 </div>
-
-
 {% if messages %}
 {% for message in messages %}
 <div class="alert alert-{{message.tags}}">
@@ -41,10 +38,8 @@
 </div>
 {% endfor %}
 {% endif %}
-
 <br>
 {% block content %}
 {% endblock %}
-
 </body>
 </html>
