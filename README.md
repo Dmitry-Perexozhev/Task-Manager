@@ -26,11 +26,10 @@ The main functionality of the system is available after **registration** and **a
 
 **Labels** - allows you to group tasks by different characteristics such as bugs, features, and so on. Labels are related to the task of relating many to many.<br />
 
-**Task** is the main entity in the project. When creating, the fields described above are available, as well as the name, description, and performer.<br />
-
+**Task** is the main entity in the project. When creating, the fields described above are available, as well as the name, description, and performer.
 Also, each task has mandatory fields - **author** (set automatically when creating the task) and status.<br />
 
-To find the necessary tasks, a filtering system is used. It allows you to filter both one by one and by several parameters such as - status, performer, label, only your tasks.<br />
+To find the necessary tasks, a **filtering system** is used. It allows you to filter both one by one and by several parameters such as - status, performer, label, only your tasks.<br />
 
 Additionally, it is impossible to delete a user, label, or status in the system if they are specified in at least one task.
 
@@ -61,7 +60,8 @@ Create the .env file in the root folder and set the value of the **SECRET_KEY** 
 DATABASE_URL=postgresql://postgres:password@db:5432/postgres
 SECRET_KEY={your secret key}
 ```
-If you choose to use SQLite DBMS, do not add DATABASE_URL variable.
+If you choose to use SQLite DBMS, do not add DATABASE_URL variable.<br />
+
 4) Install the required dependencies using Poetry and make a migration. PostgreSQL must be running:
 ```
 make build
