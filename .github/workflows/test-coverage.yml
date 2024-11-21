@@ -29,4 +29,5 @@ jobs:
             poetry run coverage erase
             poetry run coverage run manage.py test
             poetry run coverage xml
+          coverageLocations: "${{github.workspace}}/coverage.xml:clover"
           debug: true
