@@ -15,17 +15,16 @@ jobs:
         run: |
           pip install poetry
           poetry install --with dev
-      - name: Verify coverage installation
+      - name: Run tests and generate coverage report
         run: |
-          poetry run coverage --version
+          poetry run coverage run manage.py test
+          poetry run coverage xml
       - name: Test code coverage
         uses: paambaati/codeclimate-action@v5.0.0
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-          SECRET_KEY: ${{ secrets.SECRET_KEY }}
         with:
-          coverageCommand:
-            poetry run coverage erase
-            poetry run coverage run manage.py test
-            poetry run coverage xml
+          coverageCommand: poetry run coverage xml
+          coverageLocations: "coverage.xml"
+          coverageInputType: "coverage.py"
           debug: true
