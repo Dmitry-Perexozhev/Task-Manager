@@ -19,6 +19,6 @@ class UserIsOwnerMixin:
     def dispatch(self, request, *args, **kwargs):
         obj = self.get_object()
         if obj != request.user:
-            messages.error(request, self.message_error)
+            messages.error(request, self.error_message)
             return redirect(reverse_lazy(self.error_path))
         return super().dispatch(request, *args, **kwargs)
