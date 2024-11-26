@@ -35,11 +35,8 @@ Additionally, it is impossible to delete a user, label, or status in the system 
 ### Installation requirements
 
 - Python
-- Django
-- Bootstrap 5
 - PostgreSQL
 - Poetry
-- Gunicorn
 - Make
 
 ### Getting Started
@@ -61,11 +58,15 @@ SECRET_KEY={your secret key}
 ```
 If you choose to use SQLite DBMS, do not add DATABASE_URL variable.<br />
 
-4) Install the required dependencies using Poetry and make a migration. PostgreSQL must be running:
+4) Install the required dependencies using Poetry:
 ```
-make build
+make install
 ```
 
+5) Start the migration process. PostgreSQL must be running:
+```
+make migrate
+```
 ### Usage
 
 - Run the server locally in development mode 

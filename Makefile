@@ -1,5 +1,7 @@
-build:
+install:
 	poetry install
+
+migrate:
 	python manage.py migrate
 
 start:
