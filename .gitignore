@@ -5,3 +5,4 @@ coverage.xml
 .pytest_cache/
 .env
 .idea/
+db.sqlite3
