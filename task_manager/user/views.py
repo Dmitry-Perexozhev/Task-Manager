@@ -31,16 +31,16 @@ class AddUser(SuccessMessageMixin, CreateView):
         'button_name': 'Зарегистрировать'
     }
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        form = context.get('form')
-        if form:
-            for field_name, field in form.fields.items():
-                if form[field_name].errors:
-                    field.widget.attrs['class'] += ' is-invalid'
-                elif form[field_name].value():
-                    field.widget.attrs['class'] += ' is-valid'
-        return context
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     form = context.get('form')
+    #     if form:
+    #         for field_name, field in form.fields.items():
+    #             if form[field_name].errors:
+    #                 field.widget.attrs['class'] += ' is-invalid'
+    #             elif form[field_name].value():
+    #                 field.widget.attrs['class'] += ' is-valid'
+    #     return context
 
 
 class UpdateUser(UserNotAuthenticatedMixin, UserIsOwnerMixin,
