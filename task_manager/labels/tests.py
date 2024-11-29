@@ -46,4 +46,4 @@ class TestLabelModel(TestCase):
         self.client.login(username=user.username, password='1234')
         response = self.client.get(reverse('labels_list'))
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertTemplateUsed(response, 'label/label_list.html')
+        self.assertTemplateUsed(response, 'label/labels_list.html')

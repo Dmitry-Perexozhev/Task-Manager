@@ -10,18 +10,11 @@ class AddTaskForm(forms.ModelForm):
         model = Task
         fields = ['name', 'description', 'status', 'executor', 'labels']
         widgets = {
-            'name': forms.TextInput(
-                attrs={
-                    'placeholder': 'Имя',
-                    'class': 'form-control'
-                }
-            ),
+            'name': forms.TextInput(),
             'description': forms.Textarea(
                 attrs={
-                    'placeholder': 'Описание',
                     'cols': 40,
                     'rows': 10,
-                    'class': 'form-control'
                 }
             )
         }
@@ -34,19 +27,19 @@ class AddTaskForm(forms.ModelForm):
         queryset=Status.objects.all(),
         empty_label='Статус не выбран',
         label='Статус',
-        widget=forms.Select(attrs={'class': 'form-control'})
+        widget=forms.Select()
     )
 
     executor = forms.ModelChoiceField(
         queryset=User.objects.all(),
         empty_label='Исполнитель не выбран',
         label='Исполнитель',
-        widget=forms.Select(attrs={'class': 'form-control'}),
+        widget=forms.Select(),
     )
 
     labels = forms.ModelMultipleChoiceField(
         queryset=Label.objects.all(),
         label='Метки',
-        widget=forms.SelectMultiple(attrs={'class': 'form-control'}),
+        widget=forms.SelectMultiple(),
         required=False
     )
