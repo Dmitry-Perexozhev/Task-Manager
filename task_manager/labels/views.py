@@ -10,30 +10,22 @@ from django.shortcuts import redirect
 
 class AddLabel(UserNotAuthenticatedMixin, SuccessMessageMixin, CreateView):
     form_class = AddLabelForm
-    template_name = 'label/label_form.html'
+    template_name = 'label/create.html'
     success_url = reverse_lazy('labels_list')
     success_message = 'Метка успешно создана'
-    extra_context = {
-        'title': 'Создать метку',
-        'button_name': 'Создать'
-    }
 
 
 class UpdateLabel(UserNotAuthenticatedMixin, SuccessMessageMixin, UpdateView):
     model = Label
     form_class = AddLabelForm
-    template_name = 'label/label_form.html'
+    template_name = 'label/update.html'
     success_url = reverse_lazy('labels_list')
     success_message = 'Метка успешно изменена'
-    extra_context = {
-        'title': 'Изменение метки',
-        'button_name': 'Изменить'
-    }
 
 
 class DeleteLabel(UserNotAuthenticatedMixin, SuccessMessageMixin, DeleteView):
     model = Label
-    template_name = 'label/label_form.html'
+    template_name = 'label/delete.html'
     success_url = reverse_lazy('labels_list')
     success_message = 'Метка успешно удалена'
     extra_context = {
@@ -56,5 +48,5 @@ class ListLabels(UserNotAuthenticatedMixin, ListView):
     model = Label
     fields = ['id', 'name', 'created_at']
     ordering = ['id']
-    template_name = 'label/label_list.html'
+    template_name = 'label/labels_list.html'
     context_object_name = 'labels'
