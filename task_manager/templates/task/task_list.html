@@ -3,23 +3,7 @@
 <div class="container">
     <h2>Задачи</h2>
     <a href="{% url 'add_task' %}" class="btn btn-primary mb-4">Создать задачу</a>
-    <div class="card mb-4">
-        <div class="card-body">
-            <form method="get" action="">
-                {% for field in filter.form %}
-                <div class="mb-2">
-                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                    {{ field }}
-                </div>
-                {% endfor %}
-                <div class="mb-4">
-                    <input type="checkbox" name="current_user" value="1" {% if request.GET.current_user %}checked{% endif %} id="id_self_tasks">
-                    <label for="id_self_tasks">Только свои задачи</label>
-                </div>
-                <input class="btn btn-primary" type="submit" value="Показать">
-            </form>
-        </div>
-    </div>
+    {% include 'task/filter.html' %}
     <table class="table table-hover text-nowrap table-striped">
         <thead>
         <tr>

@@ -46,13 +46,9 @@ class ListTasks(UserNotAuthenticatedMixin, FilterView):
 
 class AddTask(UserNotAuthenticatedMixin, SuccessMessageMixin, CreateView):
     form_class = AddTaskForm
-    template_name = 'task/task_form.html'
+    template_name = 'task/create.html'
     success_url = reverse_lazy('tasks_list')
     success_message = 'Задача успешно создана'
-    extra_context = {
-        'title': 'Создать задачу',
-        'button_name': 'Создать'
-    }
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -62,28 +58,17 @@ class AddTask(UserNotAuthenticatedMixin, SuccessMessageMixin, CreateView):
 class UpdateTask(UserNotAuthenticatedMixin, SuccessMessageMixin, UpdateView):
     model = Task
     form_class = AddTaskForm
-    template_name = 'task/task_form.html'
+    template_name = 'task/update.html'
     success_url = reverse_lazy('tasks_list')
     success_message = 'Задача успешно изменена'
-    extra_context = {
-        'title': 'Изменение задачи',
-        'button_name': 'Изменить'
-    }
 
 
 class DeleteTask(UserNotAuthenticatedMixin, UserIsOwnerMixin,
                  SuccessMessageMixin, DeleteView):
     model = Task
-    template_name = 'task/task_form.html'
+    template_name = 'task/delete.html'
     success_url = reverse_lazy('tasks_list')
     success_message = 'Задача успешно удалена'
-    error_message = "Задачу может удалить только ее автор"
-    error_path = 'tasks_list'
-    extra_context = {
-        'title': 'Удаление задачи',
-        'button_name': 'Да, удалить',
-        'is_delete_view': True
-    }
 
 
 class TaskView(UserNotAuthenticatedMixin, DetailView):
