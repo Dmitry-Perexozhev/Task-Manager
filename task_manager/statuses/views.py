@@ -11,37 +11,24 @@ from django.shortcuts import redirect
 
 class AddStatus(UserNotAuthenticatedMixin, SuccessMessageMixin, CreateView):
     form_class = AddStatusForm
-    template_name = 'status/status_form.html'
+    template_name = 'status/create.html'
     success_url = reverse_lazy('statuses_list')
     success_message = 'Статус успешно создан'
-    extra_context = {
-        'title': 'Создать статус',
-        'button_name': 'Создать'
-    }
 
 
 class UpdateStatus(UserNotAuthenticatedMixin, SuccessMessageMixin, UpdateView):
     model = Status
     form_class = AddStatusForm
-    template_name = 'status/status_form.html'
+    template_name = 'status/update.html'
     success_url = reverse_lazy('statuses_list')
     success_message = 'Статус успешно изменен'
-    extra_context = {
-        'title': 'Изменение статуса',
-        'button_name': 'Изменить'
-    }
 
 
 class DeleteStatus(UserNotAuthenticatedMixin, SuccessMessageMixin, DeleteView):
     model = Status
-    template_name = 'status/status_form.html'
+    template_name = 'status/delete.html'
     success_url = reverse_lazy('statuses_list')
     success_message = 'Статус успешно удален'
-    extra_context = {
-        'title': 'Удаление статуса',
-        'button_name': 'Да, удалить',
-        'is_delete_view': True
-    }
 
     def post(self, request, *args, **kwargs):
         try:
