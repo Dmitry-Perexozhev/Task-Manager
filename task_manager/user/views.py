@@ -1,13 +1,13 @@
-from django.urls import reverse_lazy
-from task_manager.mixins import UserNotAuthenticatedMixin
-from django.views.generic import CreateView, ListView, UpdateView, DeleteView
-from task_manager.user.forms import RegisterUserForm, LoginUserForm
-from task_manager.user.models import User
+from django.contrib import messages
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
-from django.contrib import messages
-from django.shortcuts import redirect
 from django.db.models import ProtectedError
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
+from django.views.generic import CreateView, DeleteView, ListView, UpdateView
+from task_manager.mixins import UserNotAuthenticatedMixin
+from task_manager.user.forms import LoginUserForm, RegisterUserForm
+from task_manager.user.models import User
 
 
 class UserIsOwnerMixin:

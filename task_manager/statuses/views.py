@@ -1,12 +1,12 @@
-from django.urls import reverse_lazy
-from task_manager.mixins import UserNotAuthenticatedMixin
-from django.views.generic import CreateView, ListView, UpdateView, DeleteView
-from task_manager.statuses.forms import AddStatusForm
-from task_manager.statuses.models import Status
-from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import ProtectedError
 from django.shortcuts import redirect
+from django.urls import reverse_lazy
+from django.views.generic import CreateView, DeleteView, ListView, UpdateView
+from task_manager.mixins import UserNotAuthenticatedMixin
+from task_manager.statuses.forms import AddStatusForm
+from task_manager.statuses.models import Status
 
 
 class AddStatus(UserNotAuthenticatedMixin, SuccessMessageMixin, CreateView):

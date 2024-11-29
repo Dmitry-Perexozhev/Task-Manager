@@ -1,11 +1,11 @@
+from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from task_manager.mixins import UserNotAuthenticatedMixin
-from django.views.generic import CreateView, ListView, UpdateView, DeleteView
+from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 from task_manager.labels.forms import AddLabelForm
 from task_manager.labels.models import Label
-from django.contrib.messages.views import SuccessMessageMixin
-from django.contrib import messages
-from django.shortcuts import redirect
+from task_manager.mixins import UserNotAuthenticatedMixin
 
 
 class AddLabel(UserNotAuthenticatedMixin, SuccessMessageMixin, CreateView):
