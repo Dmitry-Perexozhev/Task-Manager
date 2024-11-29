@@ -23,50 +23,27 @@ class UserIsOwnerMixin:
 
 class AddUser(SuccessMessageMixin, CreateView):
     form_class = RegisterUserForm
-    template_name = 'user/user_form.html'
+    template_name = 'user/create.html'
     success_url = reverse_lazy('login_user')
     success_message = 'Пользователь успешно зарегистрирован'
-    extra_context = {
-        'title': 'Регистрация',
-        'button_name': 'Зарегистрировать'
-    }
-
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     form = context.get('form')
-    #     if form:
-    #         for field_name, field in form.fields.items():
-    #             if form[field_name].errors:
-    #                 field.widget.attrs['class'] += ' is-invalid'
-    #             elif form[field_name].value():
-    #                 field.widget.attrs['class'] += ' is-valid'
-    #     return context
 
 
 class UpdateUser(UserNotAuthenticatedMixin, UserIsOwnerMixin,
                  SuccessMessageMixin, UpdateView):
     model = User
     form_class = RegisterUserForm
-    template_name = 'user/user_form.html'
+    template_name = 'user/update.html'
     success_url = reverse_lazy('users_list')
     success_message = 'Пользователь успешно изменен'
-    extra_context = {
-        'title': 'Изменение пользователя',
-        'button_name': 'Изменить'
-    }
 
 
 class DeleteUser(SuccessMessageMixin, UserNotAuthenticatedMixin,
                  UserIsOwnerMixin, DeleteView):
     model = User
-    template_name = 'user/user_form.html'
+    template_name = 'user/delete.html'
     success_url = reverse_lazy('users_list')
     success_message = 'Пользователь успешно удален'
-    extra_context = {
-        'title': 'Удаление пользователя',
-        'button_name': 'Да, удалить',
-        'is_delete_view': True
-    }
+
 
     def post(self, request, *args, **kwargs):
         try:
@@ -81,13 +58,10 @@ class DeleteUser(SuccessMessageMixin, UserNotAuthenticatedMixin,
 
 class LoginUser(SuccessMessageMixin, LoginView):
     form_class = LoginUserForm
-    template_name = 'user/user_form.html'
+    template_name = 'user/login.html'
     success_url = reverse_lazy('home')
     success_message = 'Вы залогинены'
-    extra_context = {
-        'title': 'Вход',
-        'button_name': 'Войти'
-    }
+
 
     def form_invalid(self, form):
         form.errors.clear()
