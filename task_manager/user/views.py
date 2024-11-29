@@ -44,7 +44,6 @@ class DeleteUser(SuccessMessageMixin, UserNotAuthenticatedMixin,
     success_url = reverse_lazy('users_list')
     success_message = 'Пользователь успешно удален'
 
-
     def post(self, request, *args, **kwargs):
         try:
             return super().post(request, *args, **kwargs)
@@ -61,7 +60,6 @@ class LoginUser(SuccessMessageMixin, LoginView):
     template_name = 'user/login.html'
     success_url = reverse_lazy('home')
     success_message = 'Вы залогинены'
-
 
     def form_invalid(self, form):
         form.errors.clear()
