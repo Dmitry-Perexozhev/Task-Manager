@@ -1,5 +1,4 @@
 import django_filters
-
 from django_filters.filterset import FilterSet
 
 from task_manager.labels.models import Label
@@ -9,7 +8,6 @@ from task_manager.user.models import User
 
 
 class TaskFilter(FilterSet):
-
     status = django_filters.ModelChoiceFilter(
         queryset=Status.objects.all(),
         label='Статус',
