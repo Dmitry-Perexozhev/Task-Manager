@@ -4,6 +4,7 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, DetailView, UpdateView
 from django_filters.views import FilterView
+
 from task_manager.mixins import UserNotAuthenticatedMixin
 from task_manager.tasks.filters import TaskFilter
 from task_manager.tasks.forms import AddTaskForm

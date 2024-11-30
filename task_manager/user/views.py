@@ -5,6 +5,7 @@ from django.db.models import ProtectedError
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
+
 from task_manager.mixins import UserNotAuthenticatedMixin
 from task_manager.user.forms import LoginUserForm, RegisterUserForm
 from task_manager.user.models import User

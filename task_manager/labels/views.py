@@ -3,6 +3,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
+
 from task_manager.labels.forms import AddLabelForm
 from task_manager.labels.models import Label
 from task_manager.mixins import UserNotAuthenticatedMixin
