@@ -9,6 +9,7 @@ from task_manager.user.models import User
 
 
 class TaskFilter(FilterSet):
+
     status = django_filters.ModelChoiceFilter(
         queryset=Status.objects.all(),
         label='Статус',
