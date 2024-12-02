@@ -1,11 +1,3 @@
-{% extends 'index.html' %}
-{% block content %}
-<div class="container"><br>
-    <h2>Удаление пользователя</h2><br>
-    <p>Вы уверены, что хотите удалить <strong>{{ object.username }}</strong>?</p>
-    <form action="" method="post">
-        {% csrf_token %}
-        <input class="btn btn-danger" type="submit" value="Да, удалить">
-    </form>
-</div>
-{% endblock %}
+{% extends 'delete_form.html' %}
+{% block heading %}Удаление пользователя{% endblock %}
+{% block object_name %}{{ object.username }}{% endblock %}

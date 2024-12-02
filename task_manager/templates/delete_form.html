@@ -1,0 +1,11 @@
+{% extends 'index.html' %}
+{% block content %}
+<div class="container"><br>
+    <h2>{% block heading %}Заголовок{% endblock %}</h2><br>
+    <p>Вы уверены, что хотите удалить <strong>{% block object_name %} object {% endblock %}</strong>?</p>
+    <form action="" method="post">
+        {% csrf_token %}
+        <input class="btn btn-danger" type="submit" value="Да, удалить">
+    </form>
+</div>
+{% endblock %}
