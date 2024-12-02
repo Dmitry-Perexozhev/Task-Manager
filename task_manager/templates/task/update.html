@@ -1,12 +1,2 @@
-{% extends 'index.html' %}
-{% load django_bootstrap5 %}
-{% block content %}
-<div class="container"><br>
-<h2>Изменение задачи</h2><br>
-<form action="" method="post">
-    {% csrf_token %}
-    {% bootstrap_form form %}
-    <input class="btn btn-primary" type="submit" value="Изменить">
-</form>
-</div>
-{% endblock %}
+{% extends 'update_form.html' %}
+{% block heading %}Изменение задачи{% endblock %}
