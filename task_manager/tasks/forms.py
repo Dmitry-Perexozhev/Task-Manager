@@ -12,12 +12,7 @@ class AddTaskForm(forms.ModelForm):
         fields = ['name', 'description', 'status', 'executor', 'labels']
         widgets = {
             'name': forms.TextInput(),
-            'description': forms.Textarea(
-                attrs={
-                    'cols': 40,
-                    'rows': 10,
-                }
-            )
+            'description': forms.Textarea()
         }
         labels = {
             'name': 'Имя',
