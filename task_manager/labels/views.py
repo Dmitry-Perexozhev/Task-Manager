@@ -29,11 +29,6 @@ class DeleteLabel(UserNotAuthenticatedMixin, SuccessMessageMixin, DeleteView):
     template_name = 'label/delete.html'
     success_url = reverse_lazy('labels_list')
     success_message = 'Метка успешно удалена'
-    extra_context = {
-        'title': 'Удаление метки',
-        'button_name': 'Да, удалить',
-        'is_delete_view': True
-    }
 
     def post(self, request, *args, **kwargs):
         instance = self.get_object()
