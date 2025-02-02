@@ -4,7 +4,7 @@
 </div>
 
 Task Manager is a Dajngo-based web application that enables users to build work processes more efficiently
-
+You can see the application in action by visiting this link: <a href="http://194.87.99.31:8000/" target="_blank">Task Manager</a>
 ### Key Features:
 
 - Set tasks, statuses, labels
@@ -55,7 +55,7 @@ Create the .env file and set up values for environment variables:<br>
 - **`DATABASE_URL_dev`**: the connection string for your PostgreSQL database, formatted as `postgresql://username:password@localhost:5432/database_name`
 - **`DEBUG`**: True or False<br>
 - **`ALLOWED_HOSTS`**: localhost or ip server address for deployment
-- **`ACCESS_TOKEN`**: add Rollbar token
+- **`ACCESS_TOKEN`**: add Rollbar token<br>
 If you choose to use SQLite DBMS, do not add DATABASE_URL variable.<br>
 
 Install the required dependencies using Poetry:<br>
