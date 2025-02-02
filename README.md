@@ -52,7 +52,7 @@ cd Task-Manager
 3) Standard installation<br>
 Create the .env file and set up values for environment variables:<br>
 - **`SECRET_KEY`**: a secret key for your application.
-- **`DATABASE_URL_dev`**: the connection string for your PostgreSQL database, formatted as `postgresql://username:password@localhost:5432/database_name`
+- **`DATABASE_URL`**: the connection string for your PostgreSQL database, formatted as `postgresql://username:password@localhost:5432/database_name`
 - **`DEBUG`**: True or False<br>
 - **`ALLOWED_HOSTS`**: localhost or ip server address for deployment
 - **`ACCESS_TOKEN`**: add Rollbar token<br>
