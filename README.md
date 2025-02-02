@@ -1,5 +1,3 @@
-[![Actions Status](https://github.com/Dmitry-Perexozhev/python-project-52/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Dmitry-Perexozhev/python-project-52/actions)
-[![Maintainability](https://api.codeclimate.com/v1/badges/b4975e07f182c91a4872/maintainability)](https://codeclimate.com/github/Dmitry-Perexozhev/python-project-52/maintainability)
 <div align="center">
 <img src="https://github.com/Dmitry-Perexozhev/python-project-52/blob/main/img/task-manager-banner.svg" alt="logo" width="270" height="auto" />
 <h1>Task Manager</h1>
@@ -38,6 +36,7 @@ Additionally, it is impossible to delete a user, label, or status in the system 
 - PostgreSQL
 - Poetry
 - Make
+- Docker, Docker Compose
 
 ### Getting Started
 #### Installation
@@ -50,20 +49,20 @@ git@github.com:Dmitry-Perexozhev/python-project-52.git
 ```
 cd python-project-52
 ```
-3) Set up environment variables.
-Create the .env file in the root folder and set the value of the **SECRET_KEY** and **DATABASE_URL** keys
-```dotenv
-DATABASE_URL=postgresql://postgres:password@db:5432/postgres
-SECRET_KEY={your secret key}
-```
-If you choose to use SQLite DBMS, do not add DATABASE_URL variable.<br />
+3) Standard installation<br>
+Create the .env file and set up values for environment variables:<br>
+- **`SECRET_KEY`**: a secret key for your application.
+- **`DATABASE_URL_dev`**: the connection string for your PostgreSQL database, formatted as `postgresql://username:password@localhost:5432/database_name`
+- **`DEBUG`**: True or False<br>
+- **`ALLOWED_HOSTS`**: localhost or ip server address for deployment
+- **`ACCESS_TOKEN`**: add Rollbar token
+If you choose to use SQLite DBMS, do not add DATABASE_URL variable.<br>
 
-4) Install the required dependencies using Poetry:
+Install the required dependencies using Poetry:<br>
 ```
 make install
 ```
-
-5) Start the migration process. PostgreSQL must be running:
+Start the migration process. PostgreSQL must be running:<br>
 ```
 make migrate
 ```
@@ -76,4 +75,18 @@ make dev
 - Run the production Gunicorn server
 ```
 make start
+```
+4) Installation using Docker<br>
+Create the .env file and set up values for environment variables:<br>
+- **`SECRET_KEY`**: a secret key for your application.
+- **`DATABASE_URL_deploy`**: the connection string for your PostgreSQL database, formatted as `postgresql://username:password@localhost:5432/database_name`
+- **`DEBUG`**: True or False
+- **`POSTGRES_USER`**: postgres username 
+- **`POSTGRES_PASSWORD`**: user password
+- **`POSTGRES_DB`**: name database<br>
+- **`ALLOWED_HOSTS`**: localhost or ip server address for deployment
+- **`ACCESS_TOKEN`**: add Rollbar token<br>
+Build the app. Gunicorn server is in use:
+```
+docker-compose up --build -d
 ```
