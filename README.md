@@ -47,7 +47,7 @@ git@github.com:Dmitry-Perexozhev/python-project-52.git
 ```
 2) Go to the project directory:
 ```
-cd python-project-52
+cd Task-Manager
 ```
 3) Standard installation<br>
 Create the .env file and set up values for environment variables:<br>
