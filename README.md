@@ -3,7 +3,7 @@
 <h1>Task Manager</h1>
 </div>
 
-Task Manager is a Dajngo-based web application that enables users to build work processes more efficiently
+Task Manager is a Dajngo-based web application that enables users to build work processes more efficiently<br>
 You can see the application in action by visiting this link: <a href="http://194.87.99.31:8000/" target="_blank">Task Manager</a>
 ### Key Features:
 
