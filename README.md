@@ -66,16 +66,6 @@ Start the migration process. PostgreSQL must be running:<br>
 ```
 make migrate
 ```
-### Usage
-
-- Run the server locally in development mode 
-```
-make dev
-```
-- Run the production Gunicorn server
-```
-make start
-```
 4) Installation using Docker<br>
 Create the .env file and set up values for environment variables:<br>
 - **`SECRET_KEY`**: a secret key for your application.
@@ -89,4 +79,14 @@ Create the .env file and set up values for environment variables:<br>
 Build the app. Gunicorn server is in use:
 ```
 docker-compose up --build -d
+```
+#### Usage for standart installation
+
+- Run the server locally in development mode 
+```
+make dev
+```
+- Run the production Gunicorn server
+```
+make start
 ```
